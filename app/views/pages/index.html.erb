@@ -1,0 +1,52 @@
+<style>
+.image {
+    margin-left: -100px;
+    }
+.p-10 {
+  padding-left: 150px;
+  font-size: 22px;
+}
+</style>
+<div data-turbolinks= false style="overflow: hidden;" >
+<br><br>
+  <div class="row" >
+    <div class="col-2" ></div>
+    <div class="col-7 content" >
+    <div class="d-flex justify-content-around align-items-center" >
+      <h1>Alnafis Tours and Travels</h1>
+    </div>
+    
+      <div class="d-flex justify-content-around " ><%= @current_user.address1 %></div>
+      <div class="d-flex justify-content-around " ><%= @current_user.address2 %></div>
+
+    <div class="d-flex justify-content-around " ><span><b>Contact: <%= @current_user.contact %></b><span> </div>
+    <br>
+    <h2 class=" d-flex justify-content-around align-items-center" >Bill Printing
+</h2>
+</div>
+    <div class="col-3 overlap image" ><img src="https://i.ibb.co/72c5tgh/Right-Side-copy-1.png" class="img-fluid " alt="Right-Side-copy-1" border="0">
+    </div>
+    </div>
+<div class="p-10" >
+<ul>
+<li><%= link_to "Flight Ticket", flight_path %></li>
+<li><%= link_to "Train Ticket", train_path %></li>
+<li><%= link_to "Money Transfer", money_path %></li>
+<li><%= link_to "Education", education_path %></li>
+<li><%= link_to "Others", other_path  %></li>
+<li><a href="javascript:void[0]" id="reprint" >Re-Print</a></li>
+<ul id="re-show" style="display: none;" >
+  <li><%= link_to "Ticket", reprint_ticket_path %></li>
+<li><%= link_to "Money Transfer", reprint_money_path %></li>
+<li><%= link_to "Education", reprint_edu_path %></li>
+<li><%= link_to "Others", reprint_other_path  %></li>
+</ul>
+
+</ul>
+</div>
+</div>
+<script>
+  $(document).on('click','#reprint', function(){
+    $("#re-show").show();
+  })
+</script>

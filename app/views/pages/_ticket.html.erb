@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center align-items-center pt-4" >
+      <h1>Ticket Bill Printing</h1>
+    </div>
+<br>
+
+<%= form_for @entry, url: entry_update_path,html: {class: 'p-5  container form-group'} do |f| %>
+  <div class="row" ><div class="col-3" >
+  <%= f.label :name %></div><div class="col-6" >
+  <%= f.text_field :name, multiple: true, class: "form-control" %></div>
+  <button id="add_name" type="button" class=" col-2 btn btn-secondary" >Add Name</button></div>
+  <div id="add_name_show" >
+  
+  </div>
+  <br>
+  <div class="row" ><div class="col-3" >
+  <%= f.label :from %></div><div class="col-6" >
+  <%= f.select :from , @places, {}, {class: "form-control"} %></div></div>
+  <br>
+  <div class="row" ><div class="col-3" >
+  <%= f.label :to %></div><div class="col-6" >
+  <%= f.select :to, @places, {}, {class: "form-control"} %></div></div>
+  <br>
+  <div class="row" ><div class="col-3" >
+  <%= f.label :price %></div><div class="col-6" >
+  <%= f.number_field :price, class: "form-control" %></div></div>
+  <br>
+  <%= f.text_field :s_type, {value: @val, hidden: true} %>
+  <div class="row" ><div class="col-3" >
+  <%= f.label :service_name %></div><div class="col-6" >
+  <%= f.select :service_name, @s,{}, {class: "form-control"} %></div>
+  </div>
+  <br>
+  <% if (@val != "Flight Ticket") %>
+  <div class="row" ><div class="col-3" >
+  <%= f.label :id_number %></div><div class="col-6" >
+  <%= f.text_field :id_number, class: "form-control" %></div></div>
+  <br>
+  <% end %>
+  <div class="row" ><div class="col-3" >
+  <%= f.label :date %></div><div class="col-6" >
+  <%= f.datetime_field :date, class: "form-control" %></div>
+  </div>
+  <br>
+  <div class="row" ><div class="col-3" >
+  <%= f.label :phone_number %></div><div class="col-6" >
+  <%= f.text_field :phone, class: "form-control" %></div></div>
+  <br>
+  
+   <div class="row"><div class="col-7" ></div><div class="col-2" >
+  <%= f.submit "Submit" , class: "btn btn-success form-control" %>
+  </div></div>
+
+<% end %>
+
+<script>
+  let count = 1
+  $(document).ready(function(){
+    console.log("hii")
+    $("#add_name").on("click",function(){
+      $("#add_name_show").append('<br><div class="row" ><div class="col-3" ></div><div class="col-6" ><input multiple="multiple" type="text" value="" name="entry[name][]" class=" form-control" id="entry_name_'+ count +'"></div><button type="button" class="col-2 btn btn-danger del" id="'+ count++ +'" >Delete</button><br></div>')
+    })
+    $(".del").on("click",function(){
+    console.log("del")
+      let idd = $(this).attr('id')
+      console.log(idd)
+      $("#entry_name_"+idd).remove()
+      $(this).remove()
+    })
+
+  })
+  $(document).on("click",".del",function(){
+    console.log("del")
+      let idd = $(this).attr('id')
+      console.log(idd)
+      
+      $(this).parent().remove()
+  })
+</script>

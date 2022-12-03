@@ -1,0 +1,11 @@
+<%= link_to "Home", index_path, class: "col-1 btn btn-info" %>
+
+<% @messages.reverse.each do |msg| %>
+  <div>
+   <div><b>Name :</b><%= msg.name %></div><br>
+   <div><b>Message :</b><%= msg.message %></div><br>
+   <div><b>Phone number :</b><%= msg.number %></div><br>
+   <div><b>date :</b><%= msg.created_at.localtime.strftime("%B %d, %Y") %></div><br>
+  </div>
+  <br><br>
+<% end %>

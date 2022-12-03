@@ -1,0 +1,35 @@
+<style>
+th, td {
+padding: 5px;
+} 
+
+</style>
+
+<table>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Address</th>
+<th>College</th>
+<th>Course</th>
+<th>Amount</th>
+
+<th>Action</th>
+
+</tr>
+
+<div class="row" ><span class="col-11" ></span>
+<%= link_to "Home", index_path, class: "col-1 btn btn-info" %></div>
+<% @edus.each do |en| %>
+  <tr>
+    <td><%= en.id %></td>
+    <td><%= en.name + " " + en.father_name %></td>
+    <td><%= en.address %></td>
+    <td><%= en.college_name + ", " + en.location %></td>
+    <td><%= en.course %></td>
+    <td><%= en.payment %></td>
+    <td><%= link_to "Print", print_edu_path(en,1), class: "btn btn-success" %></td>
+  </tr>
+<% end %>
+
+</table>

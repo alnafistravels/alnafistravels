@@ -1,0 +1,80 @@
+<div class="row" ><span class="col-11" ></span>
+  <%= link_to "Home", index_path, class: "col-1 btn btn-info" %></div>
+<div class="d-flex justify-content-center align-items-center pt-4" >
+  <h1>Education Bill Printing</h1>
+</div>
+<br>
+<%= form_for @edu, url: edu_update_path,html: {class: 'p-5  container form-group'}  do |f| %>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :name %></div>
+    <div class="col-6" >
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :father_name %></div>
+    <div class="col-6" >
+      <%= f.text_field :father_name, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :address %></div>
+    <div class="col-6" >
+      <%= f.text_field :address, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :contact_number %></div>
+    <div class="col-6" >
+      <%= f.telephone_field :contact_number, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :college_name %></div>
+    <div class="col-6" >
+      <%= f.text_field :college_name, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :course %></div>
+    <div class="col-6" >
+      <%= f.text_field :course, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :location %></div>
+    <div class="col-6" >
+      <%= f.text_field :location, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :payment %></div>
+    <div class="col-6" >
+      <%= f.number_field :payment, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-7" ></div>
+    <div class="col-2" >
+      <%= f.submit "Submit" , class: "btn btn-success form-control" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,124 @@
+<div class="row" ><span class="col-11" ></span>
+  <%= link_to "Home", index_path, class: "col-1 btn btn-info" %></div>
+<div class="d-flex justify-content-center align-items-center pt-4" >
+  <h1>Money Transfer Bill Printing</h1>
+</div>
+<br>
+<div class="row" ><span class="col-1" ></span><span class="col-auto">Enter Phone number for search : </span><span class="col-4" ><input type="number" class="form-control" id= "search" ></span><button type="button" class="btn btn-secondary col-1" id="srch_btn" >Search</button></div>
+<br>
+<%= form_for @money, url: money_update_path,html: {class: 'p-5  container form-group'}  do |f| %>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :name %></div>
+    <div class="col-6" >
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :acc_no %></div>
+    <div class="col-6" >
+      <%= f.text_field :acc_no, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :ifsc %></div>
+    <div class="col-6" >
+      <%= f.text_field :ifsc, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :aadhar_no %></div>
+    <div class="col-6" >
+      <%= f.text_field :aadhar_no, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :pan_no %></div>
+    <div class="col-6" >
+      <%= f.text_field :pan_no, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :address %></div>
+    <div class="col-6" >
+      <%= f.text_field :address, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :from %></div>
+    <div class="col-6" >
+      <%= f.text_field :from, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :company %></div>
+    <div class="col-6" >
+      <%= f.select :company, ["Western Union","TransFast","Ria","Domestic Transfer"],{}, {class: "form-control"} %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :country %></div>
+    <div class="col-6" >
+      <%= f.select :country, ["Saudi Arabia","UAE","Singapore","Kuwait","Qatar","Bahrain","Oman","Malaysia","France","India"],{}, {class: "form-control"} %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :amount %></div>
+    <div class="col-6" >
+      <%= f.text_field :amount, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :id_no %></div>
+    <div class="col-6" >
+      <%= f.text_field :id_no, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row" >
+    <div class="col-3" >
+      <%= f.label :phone %></div>
+    <div class="col-6" >
+      <%= f.text_field :phone, class: "form-control" %> </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-7" ></div>
+    <div class="col-2" >
+      <%= f.submit "Submit" , class: "btn btn-success form-control" %>
+    </div>
+  </div>
+<% end %>
+<script>
+  $(document).on('click','#srch_btn',function(){
+    $.ajax({
+      url: '/search_money',
+      method: 'GET',
+      data: {phone: $('#search').val()},
+      success: function(response){
+        console.log(response)
+        $("#money_name").val(response["name"])
+        $("#money_acc_no").val(response["acc_no"])
+        $("#money_ifsc").val(response["ifsc"])
+        $("#money_aadhar_no").val(response["aadhar_no"])
+        $("#money_pan_no").val(response["pan_no"])
+        $("#money_from").val(response["from"])
+        $("#money_address").val(response["address"])
+        $("#money_phone").val(response["phone"])
+      },
+      error: function(response){
+        console.log(response)
+      }
+    })
+  })
+</script>

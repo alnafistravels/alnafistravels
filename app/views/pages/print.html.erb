@@ -1,0 +1,201 @@
+<style>
+
+.watermark {
+  position: fixed;
+  font-size: 80px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: rgba(157,162,166,0.6);
+
+  top: 25%;
+  transform: translateX(100%) rotate(-45deg);
+}
+</style>
+<div class="row" ><span class="col-10" ></span><button type="button" class="col-1 btn btn-success float-right px-1" onclick="printDiv('printarea','<%= (@entry.service_name + "_"+ @entry.name[0]).to_s %>')">Print</button><%= link_to "Home", index_path, class: "col-1 btn btn-info" %></div>
+<div id ="printarea" >
+  <div >
+  <% if @format == "1" %>
+    <div class="watermark" >REPRINT</div>
+  <% end %>
+  <div class="row" >
+    <div class="col-2" ></div>
+    <div class="col-7 content" >
+    <div class="d-flex justify-content-around align-items-center" >
+      <h1>Alnafis Tours and Travels</h1>
+    </div>
+
+    <div class="d-flex justify-content-around " ><%= @current_user.address1 %></div>
+    <div class="d-flex justify-content-around " ><%= @current_user.address2 %></div>
+
+  <div class="d-flex justify-content-around " ><span><b>Contact: <%= @current_user.contact %></b><span> </div>
+    <br>
+    <h3 class=" d-flex justify-content-around align-items-center" >
+Invoice
+</h3>
+</div>
+    <div class="col-3 overlap image" ><img src="https://i.ibb.co/72c5tgh/Right-Side-copy-1.png" class="img-fluid " alt="Right-Side-copy-1" border="0"></div>
+    </div>
+    <div class="row" >
+<span class="col-1 col-sm-1 col-md-1 col-xl-1" ></span>
+          <span class="col-3 col-sm-3 col-md-3 col-xl-3" ><b>Bill No : </b><%= @entry.bill_no %></span>
+          <span class="col-5 col-sm-5 col-md-5 col-xl-5" ></span>
+<span class="pl-2 col-3 col-sm-3 col-md-3 col-xl-3" ><b>Date : </b><%= @entry.created_at.strftime('%d-%m-%Y') %></span>
+</div>
+  </div>
+  <div>
+
+<div style="padding: 30px;">
+  <table class="table table-bordered" >
+    <thead>
+    <tr>
+      <th scope="col" >Name</th>
+      <% if @entry.s_type == nil %>
+      <th scope="col" >Place</th>
+      <% else %>
+      <th scope="col" >From</th>
+      <% end %>
+
+      <% if @entry.s_type != nil %>
+      <th scope="col" >To</th>
+      <% else %>
+      <th scope="col" >Country</th>
+      <% end %>
+      <% if (@entry.s_type == "Flight Ticket") %>
+        <th scope="col" >Airlines</th>
+      <% else %>
+        <th scope="col" >Service Name</th>
+      <% end %>
+      <% if(@entry.id_number != nil) %>
+        <th scope="col" >Identification Number</th>
+      <% end %>
+      <% if @entry.date %>
+      <th scope="col" >Date </th>
+      <% end %>
+      <th scope="col" >Amount</th>
+
+    </tr>
+    </thead>
+    <tbody>
+      <% @entry.name.each do |entry| %>
+      <tr>
+      <td scope="row" ><%= entry %></td>
+      <td><%= @entry.from %></td>
+      <td><%= @entry.to %></td>
+      <td><%= @entry.service_name %></td>
+      <% if @entry.date %>
+      <td><%= @entry.date.strftime("%d-%m-%Y %H:%M %p") %></td>
+      <% end %>
+      <% if (@entry.id_number != nil) %>
+      <td><%= @entry.id_number %></td>
+      <% end %>
+      <td>₹<%= "%.2f"%(("%.2f"%(@entry.price)).to_f/@entry.name.length) %></td>
+
+      </tr>
+      <% end %>
+      <tr class="table-success" >
+      <td scope="row"  ></td>
+      <td></td>
+      <td></td>
+
+      <% if(@entry.id_number != nil ) %>
+        <td></td>
+      <% end %>
+      <% if(@entry.date != nil) %>
+        <td></td>
+      <% end %>
+      <td>Total Amount</td>
+      <td>₹<%= "%.2f"%@entry.price %></td>
+      </tr>
+      <% if(@entry.paid != nil) %>
+      <tr class="table-success" >
+      <td scope="row"  ></td>
+      <td></td>
+      <td></td>
+      <% if(@entry.id_number != nil ) %>
+        <td></td>
+      <% end %>
+      <% if(@entry.date != nil) %>
+        <td></td>
+      <% end %>
+      <td>Paid</td>
+      <td>₹<%= "%.2f"%@entry.paid %></td>
+
+      </tr>
+      <% if(@entry.price - @entry.paid != 0) %>
+      <tr class="table-success" >
+      <td scope="row"  ></td>
+      <td></td>
+      <td></td>
+      <% if(@entry.id_number != nil ) %>
+        <td></td>
+      <% end %>
+      <% if(@entry.date != nil) %>
+        <td></td>
+      <% end %>
+      <td>Balance</td>
+      <td>₹<%= "%.2f"%(@entry.price - @entry.paid) %></td>
+      </tr>
+      <% end %>
+      <% end %>
+    </tbody>
+
+</div>
+<script>
+function printDiv(divName,name) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     var data = `<head><title>` + name +`</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     </head><body>`+printContents + `</body><style>
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+h1 {
+  font-family: 'Ubuntu', sans-serif;
+  color: #0000ff;
+}
+
+.image {
+    margin-left: -100px;
+    }
+.watermark {
+  position: fixed;
+  font-size: 80px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: rgba(157,162,166,0.4);
+
+  top: 18%;
+  transform: translateX(50%) rotate(-40deg);
+}
+
+</style>`;
+
+     function PopUp(data) {
+    var mywindow = window.open('','');
+
+    var is_chrome = Boolean(mywindow.chrome);
+    mywindow.document.write(data);
+    mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
+
+    if (is_chrome) {
+        mywindow.onload = function() { // wait until all resources loaded
+            mywindow.focus(); // necessary for IE >= 10
+            mywindow.print();
+            //mywindow.close();// change window to mywindow
+        };
+    }
+    else {
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+        mywindow.print();
+        //mywindow.close();
+    }
+
+    return true;
+}
+  PopUp(data)
+
+     document.body.innerHTML = originalContents;
+}
+</script>

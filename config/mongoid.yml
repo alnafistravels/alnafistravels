@@ -1,0 +1,18 @@
+development:
+  clients:
+    default:
+      uri: mongodb+srv://alnafis:Nafis786@billentry.u89ed.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      options:
+        server_selection_timeout: 5
+production:
+  clients:
+    default:
+      uri: mongodb+srv://alnafis:Nafis786@billentry.u89ed.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      options:
+        server_selection_timeout: 5
+test:
+  clients:
+    default:
+      uri: mongodb+srv://alnafis:Nafis786@billentry.u89ed.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      options:
+        server_selection_timeout: 5
