@@ -267,11 +267,11 @@
                 <div data-posts="" data-current-post-id="130">
                   <% @blogs.reverse.each do |blog| %>
                     <article data-post-id="144" class="category-hotels type-post">
-                      <div class="entry-wrapper">
+                      <div class="entry-wrapper" data-controller="staff">
                         <h2 class="entry-title"><%= blog.title %></h2>
                         <pre><%= blog.description %></pre>
 												<% if blog.details %>
-												<button class="details-btn" data-id="<%= blog.id %>" >Details </button>
+												<button class="details-btn" data-staff-target="details" data-blog-id="<%= blog.id %>" data-action="click->staff#open" >Details </button>
 												<pre class="details" id="<%= blog.id %>" ><%= blog.details %></pre>
 												<% end %>
                         <div class="entry-meta">
